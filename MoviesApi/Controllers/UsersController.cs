@@ -37,6 +37,7 @@ namespace MoviesApi.Controllers
                 {
                     new Claim (ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim (ClaimTypes.Name, user.Name),
+                    new Claim ("DateOfBirth", "1999-01-01")
 
                 })
             };

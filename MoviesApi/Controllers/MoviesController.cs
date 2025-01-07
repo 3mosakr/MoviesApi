@@ -64,6 +64,7 @@ namespace MoviesApi.Controllers
 
         [HttpPost]
         [Route("")]
+        [Authorize (Policy = "AgeGreaterThan25")]
         public async Task<IActionResult> CreateAsync([FromForm] MovieDto dto)
         {
             if (dto.Poster == null)

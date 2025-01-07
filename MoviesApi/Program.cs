@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MoviesApi.Authentication;
+using MoviesApi.Authorization;
 using MoviesApi.Data;
 using MoviesApi.Services;
 using System.Text;
@@ -23,6 +25,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddCors();
 
+// Authentication
 var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
 builder.Services.AddAuthentication().AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 {
@@ -38,6 +41,14 @@ builder.Services.AddAuthentication().AddJwtBearer(JwtBearerDefaults.Authenticati
     };
 });
 builder.Services.AddSingleton(jwtOptions);
+
+// Authorization
+builder.Services.AddSingleton<IAuthorizationHandler, AgeAuthorizationHandler>();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AgeGreaterThan25", 
+        builder => builder.AddRequirements(new AgeGreaterThan25Requirement()));
+});
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

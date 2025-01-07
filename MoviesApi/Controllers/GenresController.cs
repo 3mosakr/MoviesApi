@@ -30,6 +30,7 @@ namespace MoviesApi.Controllers
 
         [HttpPost]
         [Route("")]
+        [Authorize(Policy = "AgeGreaterThan25")]
         public async Task<IActionResult> CreateAsync(GenreDto dto)
         {
             Genre genre = new() { Name = dto.Name };
