@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoviesApi.Models;
+using MoviesApi.Data;
+using MoviesApi.Entities;
 
 namespace MoviesApi.Services
 {

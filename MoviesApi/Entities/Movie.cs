@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MoviesApi.Models
+namespace MoviesApi.Entities
 {
-    public class Movie
+    public class Movie : Entity
     {
-        public int Id { get; set; }
 
         [MaxLength(250)]
         public string Title { get; set; }

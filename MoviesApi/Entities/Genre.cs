@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MoviesApi.Models
+namespace MoviesApi.Entities
 {
     public class Genre
     {

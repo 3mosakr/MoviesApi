@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesApi.Dtos;
-using MoviesApi.Models;
+using MoviesApi.Entities;
 using MoviesApi.Services;
 
 namespace MoviesApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class MoviesController : ControllerBase
     {
         private readonly IGenresService _genresService;

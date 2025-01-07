@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoviesApi.Data;
 
-
 #nullable disable
 
 namespace MoviesApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250106143401_createMoviesEntity")]
-    partial class createMoviesEntity
+    [Migration("20250107132424_addBearerAuthentication")]
+    partial class addBearerAuthentication
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +24,7 @@ namespace MoviesApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MoviesApi.Models.Genre", b =>
+            modelBuilder.Entity("MoviesApi.Entities.Genre", b =>
                 {
                     b.Property<byte>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +42,7 @@ namespace MoviesApi.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("MoviesApi.Models.Movie", b =>
+            modelBuilder.Entity("MoviesApi.Entities.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,9 +80,32 @@ namespace MoviesApi.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("MoviesApi.Models.Movie", b =>
+            modelBuilder.Entity("MoviesApi.Entities.User", b =>
                 {
-                    b.HasOne("MoviesApi.Models.Genre", "Genre")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("NVARCHAR");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("NVARCHAR");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("MoviesApi.Entities.Movie", b =>
+                {
+                    b.HasOne("MoviesApi.Entities.Genre", "Genre")
                         .WithMany()
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
